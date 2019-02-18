@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/Programming/JAVA/PatternedLight/src/org/micromanager/plugins/PatternedLight/PatternedLightPlugin.java</file>
             <file>file:/D:/Programming/JAVA/PatternedLight/src/org/micromanager/plugins/PatternedLight/PatternedLightFrame.java</file>
+            <file>file:/D:/Programming/JAVA/PatternedLight/src/org/micromanager/plugins/PatternedLight/PatternedLightGUI.java</file>
         </group>
     </open-files>
 </project-private>
