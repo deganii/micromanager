@@ -32,6 +32,8 @@
 
 package org.micromanager.plugins.PatternedLight;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.micromanager.MenuPlugin;
 import org.micromanager.Studio;
 
@@ -41,7 +43,7 @@ import org.scijava.plugin.SciJavaPlugin;
 @Plugin(type = MenuPlugin.class)
 public class PatternedLightPlugin implements SciJavaPlugin, MenuPlugin {
   private Studio studio_;
-   private PatternedLightFrame frame_;
+   private PatternedLightGUI frame_;
 
    /**
     * This method receives the Studio object, which is the gateway to the
@@ -65,10 +67,11 @@ public class PatternedLightPlugin implements SciJavaPlugin, MenuPlugin {
      // System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
       
       if (frame_ == null) {
-         // We have never before shown our GUI, so now we need to create it.
-         frame_ = new PatternedLightFrame(studio_);
+              // We have never before shown our GUI, so now we need to create it.
+         frame_ = new PatternedLightGUI(studio_);  
+                
       }
-      frame_.setVisible(true);
+      frame_.setVisible(true); 
    }
    
 

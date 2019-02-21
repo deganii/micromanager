@@ -30,6 +30,8 @@ import ij.process.ImageProcessor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
+import static java.awt.image.ImageObserver.PROPERTIES;
+import static java.awt.image.ImageObserver.PROPERTIES;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -42,8 +44,12 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import mmcorej.DeviceType;
 
 import net.miginfocom.swing.MigLayout;
+import org.micromanager.MultiStagePosition;
+import org.micromanager.PositionList;
+import org.micromanager.StagePosition;
 
 import org.micromanager.data.Image;
 import org.micromanager.events.ExposureChangedEvent;
@@ -94,7 +100,45 @@ public class PatternedLightFrame extends MMFrame {
          }
       });
       super.add(alertButton, "wrap");
-      
+     
+      //Call Stitching image function
+      JButton StitchingButton = new JButton("Stitching");
+      // Clicking on this button will invoke the ActionListener, which in turn
+      // will show a text alert to the user.
+      StitchingButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {                    
+            // Ask for the Top Left and Lower Right Coordinate of the Stitching image
+            String XYstageName = studio_.core().getXYStageDevice();
+            String ZstageName = studio_.core().getFocusDevice();
+            PositionList c = new PositionList();
+            double[] PosX = null;
+            double[] PosY = null;
+            int counter = 0;
+            try {                 
+                 studio_.core().getXYPosition(XYstageName, PosX, PosY);
+                 c.addPosition(counter, new MultiStagePosition("X", studio_.core().getPosition("X"),
+                                                                studio_.core().getPosition("Y"),          
+                                                                "Z", studio_.core().getPosition("Z")));
+             } catch (Exception ex) {
+                 Logger.getLogger(PatternedLightFrame.class.getName()).log(Level.SEVERE, null, ex);
+             }
+                     
+             
+             //Move the Stage and Focus
+            try {
+                for(int i=0; i < c.getNumberOfPositions(); i++){               
+                    studio_.core().setXYPosition(XYstageName, c.getPosition(i).getX(), c.getPosition(i).getY());
+                    studio_.core().setPosition(ZstageName, c.getPosition(i).getZ());                
+                }
+                while(studio_.core().deviceTypeBusy(DeviceType.StageDevice))
+                    studio_.core().waitForDeviceType(DeviceType.StageDevice);
+            } catch (Exception ex) {
+                    Logger.getLogger(PatternedLightFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+      });
+      super.add(StitchingButton, "wrap");
       
       // Snap an image, show the image in the Snap/Live view, and show some
       // stats on the image in our frame.
@@ -107,14 +151,6 @@ public class PatternedLightFrame extends MMFrame {
          public void actionPerformed(ActionEvent e) {
             studio_.alerts().postAlert("PatternedLight",
                PatternedLightFrame.class, "Capture Video");
-            //       try {
-            //           JOptionPane.showMessageDialog(null,
-            //                      studio_.core().getDeviceName(studio_.core().getCameraDevice()),
-            //                       "TITLE",
-            //                       JOptionPane.WARNING_MESSAGE);
-            //       } catch (Exception ex) {
-            //           Logger.getLogger(PatternedLightFrame.class.getName()).log(Level.SEVERE, null, ex);
-            //       }
             try {                 
                 studio_.core().setProperty("OpenCVgrabber", "PixelType", "8bit");
             } catch (Exception ex) {
