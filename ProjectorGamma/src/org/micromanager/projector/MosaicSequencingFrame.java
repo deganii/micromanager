@@ -64,18 +64,25 @@ import mmcorej.StrVector;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.micromanager.api.ScriptInterface;
-import org.micromanager.utils.FileDialogs;
-import org.micromanager.utils.GUIUtils;
-import org.micromanager.utils.ReportingUtils;
-import org.micromanager.utils.TextUtils;
+import org.micromanager.Studio;
+import org.micromanager.display.DisplayWindow;
+import org.micromanager.internal.utils.FileDialogs;
+import org.micromanager.internal.utils.GUIUtils;
+import org.micromanager.internal.utils.ReportingUtils;
+import org.micromanager.internal.utils.TextUtils;
+//import org.micromanager.api.ScriptInterface;
+//import org.micromanager.utils.FileDialogs;
+//import org.micromanager.utils.GUIUtils;
+//import org.micromanager.utils.ReportingUtils;
+//import org.micromanager.utils.TextUtils;
+
 
 // The Mosaic Sequencing Window is for use with Andor's Mosaic3 device adapter.
 // It allows the creation of complex phototargeting sequences, for use with
 // Micro-Manager's multi-dimensional acquisition.
 public class MosaicSequencingFrame extends javax.swing.JFrame {
    private final CMMCore core_;
-   private final ScriptInterface gui_;
+   private final Studio gui_;
    private final String mosaicName_;
    private final SLM mosaicDevice_;
    private final int mosaicWidth_;
@@ -110,15 +117,15 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
          } catch (Exception ex) {
                 ReportingUtils.logError(ex);
             }
-        }
+    }
       return mosaicDevices;
    }
    
    // Returns the current Rois on the live window.
    private Roi[] getRois() {
-      ImageWindow win;
+       DisplayWindow win;
       try {
-         win = gui_.getSnapLiveWin();
+         win = gui_.live().getDisplay();
       } catch (Exception e) {
          return new Roi[0]; // empty array
       }
@@ -476,7 +483,7 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
      
    // Get a list of SequenceEvents by extracting information from the sequenceTable_.
    private ArrayList<SequenceEvent> getSequenceEvents() {
-      final ImageWindow snapLiveWin = gui_.getSnapLiveWin();
+      final DisplayWindow snapLiveWin = gui_.live().getDisplay();
       final ImagePlus snapLiveImage = snapLiveWin.getImagePlus();
       List<FloatPolygon> availableFloatRoiPolygons = projectorControlForm_.transformROIs(snapLiveImage, getRois());
       List<Polygon> availableRoiPolygons = Utils.FloatToNormalPolygon(
@@ -742,7 +749,7 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
       if (getSequenceCount() == 0) {
          throw new Exception("Please upload a sequence to the Mosaic for attaching to multi-dimensional acquisition.");
       }
-      gui_.attachRunnable(0, 0, 0, 0,
+      gui_.acquisitions().attachRunnable(0, 0, 0, 0,
             ProjectorControlForm.makeRunnableAsync(
                   new Runnable() {
                      public void run() {
@@ -758,7 +765,7 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
    // The acquisition engine will no longer run phototargeting after this
    // is called. Called by the "detach" button.
    public void detachFromAcquisition() {
-      gui_.clearRunnables();
+      gui_.acquisitions().clearRunnables();
    }
    
    // ## Constructor and main window.
@@ -766,7 +773,7 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
    // Creates a new window, the MosaicSequencingFrame. This frame allows the
    // user to generate sequences of ROIs, and optionally, generate ROIs in
    // a grid pattern.
-   public MosaicSequencingFrame(ScriptInterface gui, CMMCore core, ProjectorControlForm projectorControlForm, SLM mosaicDevice) {
+   public MosaicSequencingFrame(Studio gui, CMMCore core, ProjectorControlForm projectorControlForm, SLM mosaicDevice) {
       initComponents();
       gui_ = gui;
       core_ = core;
@@ -781,8 +788,7 @@ public class MosaicSequencingFrame extends javax.swing.JFrame {
       // The mosaic executor service makes sure everything happens
       // in sequence, but off the GUI thread.
       mosaicExecutor_ = Executors.newFixedThreadPool(1);
-      
-      GUIUtils.recallPosition(this);
+    //  GUIUtils.recallPosition(this); Need to figure out what's happening here.
       GUIUtils.enforceIntegerTextField(onDurationTextField_, 0, 200000);
       GUIUtils.enforceIntegerTextField(offDurationTextField_, 0, 200000);
       GUIUtils.enforceIntegerTextField(loopCountTextField_, 0, 65535);

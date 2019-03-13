@@ -22,10 +22,10 @@ import java.awt.Checkbox;
 import java.awt.Panel;
 import java.awt.event.ItemEvent;
 import mmcorej.CMMCore;
-import org.micromanager.api.MMPlugin;
-import org.micromanager.api.ScriptInterface;
-import org.micromanager.utils.GUIUtils;
-import org.micromanager.utils.ReportingUtils;
+import org.micromanager.MMPlugin;
+import org.micromanager.Studio;
+import org.micromanager.internal.utils.GUIUtils;
+import org.micromanager.internal.utils.ReportingUtils;
 
 
 // The Projector plugin provides a user interface for calibration and control
@@ -37,7 +37,7 @@ public class ProjectorPlugin implements MMPlugin {
       "Control galvo or SLM devices that project a spot or pattern " +
       "on the sample";
    
-   private ScriptInterface app_;
+   private Studio app_;
    private CMMCore core_;
    private ProjectorControlForm form_;
 
@@ -45,7 +45,7 @@ public class ProjectorPlugin implements MMPlugin {
    public static RoiManager showRoiManager() {
       IJ.run("ROI Manager...");
       final RoiManager roiManager = RoiManager.getInstance();
-      GUIUtils.recallPosition(roiManager);
+    //  GUIUtils.recallPosition(roiManager); Need to figure it out later.
       // "Get the "Show All" checkbox and make sure it is checked.
       Checkbox checkbox = (Checkbox) ((Panel) roiManager.getComponent(1)).getComponent(9);
       checkbox.setState(true);
@@ -55,54 +55,60 @@ public class ProjectorPlugin implements MMPlugin {
       return roiManager;
    }
    
-    @Override
-    public void dispose() {
-        if (form_ != null) {
-            form_.dispose();
-        }
-    }
 
-   @Override
-   public void setApp(ScriptInterface app) {
-      app_ = app;
-      core_ = app_.getMMCore();
-   }
+//    public void dispose() {
+//        if (form_ != null) {
+//            form_.dispose();
+//        }
+//    }
 
    // Instantiate the ProjectorControlForm window if necessary, and show it
    // if it's not visible.
-   @Override
-   public void show() {
-      if (core_.getSLMDevice().length()==0 && core_.getGalvoDevice().length()==0) {
-         ReportingUtils.showMessage("Please load an SLM (Spatial Light Modulator) " +
-               "or a Galvo-based phototargeting device " +
-               "before using the Projector plugin.");
-         return;
-      }
-      form_ = ProjectorControlForm.showSingleton(core_, app_);
-   }
+//   public void show() {
+//      if (core_.getSLMDevice().length()==0 && core_.getGalvoDevice().length()==0) {
+//         ReportingUtils.showMessage("Please load an SLM (Spatial Light Modulator) " +
+//               "or a Galvo-based phototargeting device " +
+//               "before using the Projector plugin.");
+//         return;
+//      }
+//      form_ = ProjectorControlForm.showSingleton(core_, app_);
+//   }
 
    public void configurationChanged() {
       throw new UnsupportedOperationException("Not supported yet.");
    }
 
    @Override
-   public String getDescription() {
-      return tooltipDescription;
-   }
-
-   @Override
-   public String getInfo() {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
    public String getVersion() {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return("Version 1.0");
    }
 
    @Override
    public String getCopyright() {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return("Written by Bill Chow");
    }
+
+    @Override
+    public void setContext(Studio studio) {
+        app_ = studio;
+        core_ = app_.getCMMCore();
+        if (core_.getSLMDevice().length()==0 && core_.getGalvoDevice().length()==0) {
+         ReportingUtils.showMessage("Please load an SLM (Spatial Light Modulator) " +
+               "or a Galvo-based phototargeting device " +
+               "before using the Projector plugin.");
+         return;
+      }
+      form_ = ProjectorControlForm.showSingleton(core_, app_);
+    }
+
+    @Override
+    public String getName() {
+        return menuName;
+    }
+
+    @Override
+    public String getHelpText() {
+        return "Good Luck!!";
+    }
 
 }

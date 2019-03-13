@@ -81,18 +81,29 @@ import javax.swing.text.DefaultFormatter;
 import mmcorej.CMMCore;
 import mmcorej.Configuration;
 import mmcorej.DeviceType;
+import static mmcorej.PropertyType.String;
 import mmcorej.TaggedImage;
 
 import org.json.JSONException;
-import org.micromanager.api.ScriptInterface;
-import org.micromanager.imagedisplay.VirtualAcquisitionDisplay;
-import org.micromanager.utils.GUIUtils;
-import org.micromanager.utils.ImageUtils;
-import org.micromanager.utils.JavaUtils;
-import org.micromanager.utils.MMFrame;
-import org.micromanager.utils.MMListenerAdapter;
-import org.micromanager.utils.MathFunctions;
-import org.micromanager.utils.ReportingUtils;
+import org.micromanager.Studio;
+import org.micromanager.display.DisplayWindow;
+import org.micromanager.events.SLMExposureChangedEvent;
+import org.micromanager.internal.utils.GUIUtils;
+import org.micromanager.internal.utils.ImageUtils;
+import org.micromanager.internal.utils.JavaUtils;
+import org.micromanager.internal.utils.MMFrame;
+import org.micromanager.internal.utils.MathFunctions;
+import org.micromanager.internal.utils.ReportingUtils;
+
+//import org.micromanager.api.ScriptInterface;
+//import org.micromanager.imagedisplay.VirtualAcquisitionDisplay;
+//import org.micromanager.utils.GUIUtils;
+//import org.micromanager.utils.ImageUtils;
+//import org.micromanager.utils.JavaUtils;
+//import org.micromanager.utils.MMFrame;
+//import org.micromanager.utils.MMListenerAdapter;
+//import org.micromanager.utils.MathFunctions;
+//import org.micromanager.utils.ReportingUtils;
 
 /**
  * The main window for the Projector plugin. Contains logic for calibration,
@@ -104,7 +115,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
    private final MouseListener pointAndShootMouseListener;
    private final AtomicBoolean pointAndShooteModeOn_ = new AtomicBoolean(false);
    private final CMMCore core_;
-   private final ScriptInterface app_;
+   private final Studio app_;
    private final boolean isSLM_;
    private Roi[] individualRois_ = {};
    private Map<Polygon, AffineTransform> mapping_ = null;
@@ -238,8 +249,8 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
          if (targetingChannel_ != null && targetingChannel_.length() > 0) {
             originalConfig = core_.getConfigGroupState(channelGroup);
             if (!originalConfig.isConfigurationIncluded(core_.getConfigData(channelGroup, targetingChannel_))) {
-               if (app_.isAcquisitionRunning()) {
-                  app_.setPause(true);
+               if (app_.acquisitions().isAcquisitionRunning()) {
+                  app_.acquisitions().setPause(true);
                }
                core_.setConfig(channelGroup, targetingChannel_);
             }
@@ -259,8 +270,8 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
       if (originalConfig != null) {
          try {
             core_.setSystemState(originalConfig);
-            if (app_.isAcquisitionRunning() && app_.isPaused()) {
-               app_.setPause(false);
+            if (app_.acquisitions().isAcquisitionRunning() && app_.acquisitions().isPaused()) {
+               app_.acquisitions().setPause(false);
             }
          } catch (Exception ex) {
             ReportingUtils.logError(ex);
@@ -394,6 +405,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
     * maps each polygon cell to an AffineTransform.
     */ 
    private void saveMapping(HashMap<Polygon, AffineTransform> mapping) {
+      
       JavaUtils.putObjectInPrefs(getCalibrationNode(), dev_.getName(), mapping);
       mapping_ = mapping;
       mappingNode_ = getCalibrationNode().toString();
@@ -451,7 +463,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
          // dev_.setExposure(originalExposure);
          TaggedImage taggedImage2 = core_.getTaggedImage();
          ImageProcessor proc2 = ImageUtils.makeMonochromeProcessor(taggedImage2);
-         app_.displayImage(taggedImage2);
+         app_.displays().show(app_.data().convertTaggedImage(taggedImage2));
          // saving images to album is useful for debugging
          // TODO figure out why this doesn't work towards the end; maybe limitation on # of images in album
          // if (addToAlbum) {
@@ -459,7 +471,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
          // }
          ImageProcessor diffImage = ImageUtils.subtractImageProcessors(proc2.convertToFloatProcessor(), proc1.convertToFloatProcessor());
          Point maxPt = findPeak(diffImage);
-         app_.getSnapLiveWin().getImagePlus().setRoi(new PointRoi(maxPt.x, maxPt.y));
+         app_.live().getDisplay().getImagePlus().setRoi(new PointRoi(maxPt.x, maxPt.y));
          // NS: what is this second sleep good for????
          // core_.sleep(500);
          return maxPt;
@@ -623,8 +635,8 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
     * the mapping to Java Preferences.
     */
    public void runCalibration() {
-      final boolean liveModeRunning = app_.isLiveModeOn();
-      app_.enableLiveMode(false);
+      final boolean liveModeRunning = app_.live().getIsLiveModeOn();
+      app_.live().setLiveMode(false);
       if (!isRunning_.get()) {
          stopRequested_.set(false);
          Thread th = new Thread("Projector calibration thread") {
@@ -654,7 +666,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
                      saveMapping(mapping);
                   }
                   
-                  app_.enableLiveMode(liveModeRunning);
+                  app_.live().setLiveMode(liveModeRunning);
                   JOptionPane.showMessageDialog(IJ.getImage().getWindow(), "Calibration "
                         + (!stopRequested_.get() ? "finished." : "canceled."));
                   IJ.getImage().setRoi(originalROI);
@@ -959,7 +971,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
     * @param selectedOnly
     * @return 
     */
-   public static Roi[] getRois(ImageWindow window, boolean selectedOnly) {
+   public static Roi[] getRois(DisplayWindow window, boolean selectedOnly) {
       Roi[] rois = new Roi[]{};
       Roi[] roiMgrRois = {};
       Roi singleRoi = window.getImagePlus().getRoi();
@@ -1026,8 +1038,8 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
    
    // Save ROIs in the acquisition path, if it exists.
    private void recordPolygons() {
-      if (app_.isAcquisitionRunning()) {
-         String location = app_.getAcquisitionPath();
+      if (app_.acquisitions().isAcquisitionRunning()) {
+         String location = app_.album().getDatastore().getSavePath();
          if (location != null) {
             try {
                File f = new File(location, "ProjectorROIs.zip");
@@ -1050,7 +1062,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
       if (mapping_ == null) {
          throw new RuntimeException("Please calibrate the phototargeting device first, using the Setup tab.");
       }
-      ImageWindow window = WindowManager.getCurrentWindow();
+      DisplayWindow window = app_.displays().getCurrentWindow();
       if (window == null) {
          throw new RuntimeException("No image window with ROIs is open.");
       }
@@ -1108,13 +1120,13 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
    */
    public void attachRoisToMDA(int firstFrame, boolean repeat, 
            int frameRepeatInveral, Runnable runPolygons) {
-      app_.clearRunnables();
+      app_.acquisitions().clearRunnables();
       if (repeat) {
-         for (int i = firstFrame; i < app_.getAcquisitionSettings().numFrames * 10; i += frameRepeatInveral) {
-            app_.attachRunnable(i, -1, 0, 0, runPolygons);
+         for (int i = firstFrame; i < app_.acquisitions().getAcquisitionSettings().numFrames * 10; i += frameRepeatInveral) {
+            app_.acquisitions().attachRunnable(i, -1, 0, 0, runPolygons);
          }
       } else {
-         app_.attachRunnable(firstFrame, -1, 0, 0, runPolygons);
+         app_.acquisitions().attachRunnable(firstFrame, -1, 0, 0, runPolygons);
       }
    }
 
@@ -1122,7 +1134,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
     * Remove the attached ROIs from the multi-dimensional acquisition.
     */
    public void removeFromMDA() {
-      app_.clearRunnables();
+      app_.acquisitions().clearRunnables();
    }
   
    // ## GUI
@@ -1297,7 +1309,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
             final Callable<Boolean> mdaRunning = new Callable<Boolean>() {
                @Override
                public Boolean call() throws Exception {
-                  return app_.isAcquisitionRunning();
+                  return app_.acquisitions().isAcquisitionRunning();
                }
             };
             attachRoisToMDA(1, false, 0,
@@ -1344,10 +1356,10 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
    /**
     * Constructor. Creates the main window for the Projector plugin.
     */
-   private ProjectorControlForm(CMMCore core, ScriptInterface app) {
+   private ProjectorControlForm(CMMCore core, Studio app) {
       initComponents();
       app_ = app;
-      core_ = app.getMMCore();
+      core_ = app.getCMMCore();
       String slm = core_.getSLMDevice();
       String galvo = core_.getGalvoDevice();
 
@@ -1397,7 +1409,7 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
       commitSpinnerOnValidEdit(roiLoopSpinner);
       pointAndShootIntervalSpinner.setValue(dev_.getExposure() / 1000);
       sequencingButton.setVisible(MosaicSequencingFrame.getMosaicDevices(core).size() > 0);
-     
+      
       app_.addMMListener(new MMListenerAdapter() {
          @Override
          public void slmExposureChanged(String deviceName, double exposure) {
@@ -1417,11 +1429,11 @@ public class ProjectorControlForm extends MMFrame implements OnStateListener {
     * @param app  ScritpInterface
     * @return singleton instance
     */
-   public static ProjectorControlForm showSingleton(CMMCore core, ScriptInterface app) {
+   public static ProjectorControlForm showSingleton(CMMCore core, Studio app) {
       if (formSingleton_ == null) {
          formSingleton_ = new ProjectorControlForm(core, app);
          // Place window where it was last.
-         GUIUtils.recallPosition(formSingleton_);
+    //     GUIUtils.recallPosition(formSingleton_);  Skipped code.
       }
       formSingleton_.setVisible(true);
       return formSingleton_;
