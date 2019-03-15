@@ -20,6 +20,14 @@
         <Property name="text" type="java.lang.String" value="illumin Time"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JSpinner" name="jSpinner_IllumTime2">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="5000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -76,26 +84,7 @@
             </Constraint>
           </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel4" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" pref="261" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel4">
 
@@ -103,12 +92,8 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel_Status" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jButton_add" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -117,59 +102,64 @@
                                   <Component id="jButton_Clear" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton_Stitch" max="32767" attributes="0"/>
-                              <Component id="jButton_Calibration" max="32767" attributes="0"/>
-                              <Component id="jButton_MoveStage" alignment="0" max="32767" attributes="0"/>
-                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jSpinner_MoveDelay" min="-2" pref="92" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel_ms2" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
-                                  <Component id="jLabel_MoveDelay" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jButton_Stitch" linkSize="1" alignment="2" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="jButton_Calibration" linkSize="1" alignment="2" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="jButton_MoveStage" linkSize="1" alignment="2" min="-2" pref="126" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jSpinner_CalibrateDelay" linkSize="3" alignment="2" min="-2" pref="63" max="-2" attributes="0"/>
+                              <Component id="jSpinner_MoveDelay" linkSize="3" alignment="2" min="-2" pref="62" max="-2" attributes="0"/>
+                              <Component id="jSpinner_IllumTime" linkSize="3" alignment="2" min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="jLabel_CalibrateDelay" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel_Status" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jScrollPane1" min="-2" pref="194" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton_add" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton_Remove" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton_Clear" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jButton_Stitch" min="-2" pref="54" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton_Calibration" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="jButton_MoveStage" min="-2" pref="54" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel_MoveDelay" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jSpinner_MoveDelay" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel_ms2" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel_CalibrateDelay" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="1" groupAlignment="2" attributes="0">
+                                  <Component id="jButton_Stitch" linkSize="2" alignment="2" min="-2" pref="54" max="-2" attributes="0"/>
+                                  <Component id="jSpinner_IllumTime" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jButton_Calibration" linkSize="2" alignment="2" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="jSpinner_CalibrateDelay" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jButton_MoveStage" linkSize="2" alignment="2" min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="jSpinner_MoveDelay" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel_Status" min="-2" pref="26" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="191" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton_add" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Remove" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Clear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -186,6 +176,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                           <StringArray count="0"/>
+                        </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="Position List for stitching."/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Default Cursor"/>
                         </Property>
                       </Properties>
                       <AuxValues>
@@ -226,6 +220,7 @@
                 <Component class="javax.swing.JButton" name="jButton_Stitch">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Start Experiment"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Obtaining images, then determin target cell location from the image.&lt;br&gt;Illuminate the target cell with delay.&lt;/html&gt;"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_StitchActionPerformed"/>
@@ -234,7 +229,7 @@
                 <Component class="javax.swing.JButton" name="jButton_Calibration">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Calibrate"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="toolTipText" type="java.lang.String" value="Calibrate the projector pixel to camera pixel"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_CalibrationActionPerformed"/>
@@ -243,27 +238,39 @@
                 <Component class="javax.swing.JButton" name="jButton_MoveStage">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Move Stage"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Move the stage and illuminate a pattern with time delay."/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_MoveStageActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="jSpinner_CalibrateDelay">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="200" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Time interval between two light spot."/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner_MoveDelay">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="5000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="toolTipText" type="java.lang.String" value="Illumination Time (ms) for each location."/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel_ms2">
+                <Component class="javax.swing.JSpinner" name="jSpinner_IllumTime">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="ms"/>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="5000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Illumination time for each pattern."/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel_MoveDelay">
+                <Component class="javax.swing.JLabel" name="jLabel_CalibrateDelay">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Move Delay"/>
+                    <Property name="text" type="java.lang.String" value="Delay (ms)"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -285,7 +292,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -310,6 +317,8 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButton_TestMarco" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton_ProcessImage" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -347,13 +356,13 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jSpinner_BlurRadius" pref="100" max="32767" attributes="0"/>
-                                      <Component id="jComboBox_ThresholdMethod" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jSpinner_BlurRadius" min="-2" pref="52" max="-2" attributes="0"/>
+                                      <Component id="jComboBox_ThresholdMethod" min="-2" pref="96" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
@@ -370,7 +379,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel_AnalyzeParticle1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jSpinner_BlurRadius" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel_GaussianBlur" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -408,7 +417,10 @@
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton_TestMarco" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton_TestMarco" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_ProcessImage" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -510,6 +522,14 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton_ProcessImage">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Process Image"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ProcessImageActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -530,28 +550,18 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButton_ShowImage" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSpinner_IllumTime" min="-2" pref="92" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel_ms" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jButton_ShowCheckboard" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="276" max="32767" attributes="0"/>
+                      <EmptySpace pref="331" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="jSpinner_IllumTime" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel_ms" alignment="2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="159" max="32767" attributes="0"/>
+                      <EmptySpace pref="180" max="32767" attributes="0"/>
+                      <Component id="jButton_ShowCheckboard" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton_ShowImage" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -568,23 +578,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ShowImageActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner_IllumTime">
+            <Component class="javax.swing.JButton" name="jButton_ShowCheckboard">
               <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="5000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Checkboard"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="illumin Time"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel_ms">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ms"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ShowCheckboardActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
