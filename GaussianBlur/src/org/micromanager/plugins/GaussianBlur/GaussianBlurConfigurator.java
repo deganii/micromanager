@@ -56,6 +56,19 @@ public class GaussianBlurConfigurator extends MMFrame implements ProcessorConfig
         jSpinner_Radius = new javax.swing.JSpinner();
         jLabel_ThreMethod = new javax.swing.JLabel();
         jComboBox_ThreMethod = new javax.swing.JComboBox<>();
+        jCheckBox_useGaussian = new javax.swing.JCheckBox();
+        jCheckBox_useThreshold = new javax.swing.JCheckBox();
+        jCheckBox_useAnalyze = new javax.swing.JCheckBox();
+        jLabel_ThreMethod1 = new javax.swing.JLabel();
+        jSpinner_Analyze_minSize = new javax.swing.JSpinner();
+        jSpinner_Analyze_maxSize = new javax.swing.JSpinner();
+        jLabel_ThreMethod2 = new javax.swing.JLabel();
+        jSpinner_Analyze_minCir = new javax.swing.JSpinner();
+        jSpinner_Analyze_maxCir = new javax.swing.JSpinner();
+        jLabel_ThreMethod3 = new javax.swing.JLabel();
+        jLabel_ThreMethod4 = new javax.swing.JLabel();
+        jCheckBox_useOpening = new javax.swing.JCheckBox();
+        jCheckBox_useClosing = new javax.swing.JCheckBox();
 
         jPanel1.setName("Test Panel"); // NOI18N
 
@@ -68,35 +81,150 @@ public class GaussianBlurConfigurator extends MMFrame implements ProcessorConfig
 
         jLabel_ThreMethod.setText("Thres Method");
 
+        jCheckBox_useGaussian.setSelected(true);
+        jCheckBox_useGaussian.setText("Gaussian Blur");
+        jCheckBox_useGaussian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_useGaussianActionPerformed(evt);
+            }
+        });
+
+        jCheckBox_useThreshold.setSelected(true);
+        jCheckBox_useThreshold.setText("Thresholding");
+        jCheckBox_useThreshold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_useThresholdActionPerformed(evt);
+            }
+        });
+
+        jCheckBox_useAnalyze.setSelected(true);
+        jCheckBox_useAnalyze.setText("Analyze");
+        jCheckBox_useAnalyze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_useAnalyzeActionPerformed(evt);
+            }
+        });
+
+        jLabel_ThreMethod1.setText("Min Size");
+
+        jSpinner_Analyze_minSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(0L), Long.valueOf(0L), Long.valueOf(9999999999999L), Long.valueOf(1L)));
+        jSpinner_Analyze_minSize.setInheritsPopupMenu(true);
+        jSpinner_Analyze_minSize.setName(""); // NOI18N
+        jSpinner_Analyze_minSize.setRequestFocusEnabled(false);
+        jSpinner_Analyze_minSize.setValue(0L);
+
+        jSpinner_Analyze_maxSize.setModel(new javax.swing.SpinnerNumberModel(Long.valueOf(1L), Long.valueOf(0L), Long.valueOf(1316134911L), Long.valueOf(1L)));
+        jSpinner_Analyze_maxSize.setInheritsPopupMenu(true);
+        jSpinner_Analyze_maxSize.setName(""); // NOI18N
+        jSpinner_Analyze_maxSize.setValue(999999999L);
+
+        jLabel_ThreMethod2.setText("Max Size");
+
+        jSpinner_Analyze_minCir.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0d, 0.001d));
+        jSpinner_Analyze_minCir.setInheritsPopupMenu(true);
+        jSpinner_Analyze_minCir.setName(""); // NOI18N
+        jSpinner_Analyze_minCir.setValue(0.000);
+
+        jSpinner_Analyze_maxCir.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.0d, 1.0d, 0.001d));
+        jSpinner_Analyze_maxCir.setInheritsPopupMenu(true);
+        jSpinner_Analyze_maxCir.setName(""); // NOI18N
+        jSpinner_Analyze_maxCir.setValue(1.000);
+
+        jLabel_ThreMethod3.setText("Max Circuilarity");
+
+        jLabel_ThreMethod4.setText("Min Circuilarity");
+
+        jCheckBox_useOpening.setSelected(true);
+        jCheckBox_useOpening.setText("Opening");
+        jCheckBox_useOpening.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_useOpeningActionPerformed(evt);
+            }
+        });
+
+        jCheckBox_useClosing.setText("Closing");
+        jCheckBox_useClosing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_useClosingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel_ThreMethod)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox_ThreMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox_useGaussian)
+                            .addComponent(jCheckBox_useThreshold)
+                            .addComponent(jCheckBox_useAnalyze))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_Radius)
+                            .addComponent(jLabel_ThreMethod)
+                            .addComponent(jLabel_ThreMethod3)
+                            .addComponent(jLabel_ThreMethod4)
+                            .addComponent(jLabel_ThreMethod1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel_ThreMethod2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jSpinner_Analyze_minSize, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner_Analyze_maxSize, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner_Radius, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner_Analyze_minCir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner_Analyze_maxCir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox_ThreMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel_Radius)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinner_Radius, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addComponent(jCheckBox_useOpening)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCheckBox_useClosing)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel_Radius)
-                    .addComponent(jSpinner_Radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner_Radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox_useGaussian))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel_ThreMethod)
-                    .addComponent(jComboBox_ThreMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45))
+                    .addComponent(jComboBox_ThreMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox_useThreshold))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBox_useOpening)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox_useClosing)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCheckBox_useAnalyze)
+                    .addComponent(jSpinner_Analyze_minSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel_ThreMethod1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ThreMethod2)
+                    .addComponent(jSpinner_Analyze_maxSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel_ThreMethod4)
+                    .addComponent(jSpinner_Analyze_minCir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_ThreMethod3)
+                    .addComponent(jSpinner_Analyze_maxCir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,23 +232,58 @@ public class GaussianBlurConfigurator extends MMFrame implements ProcessorConfig
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBox_useGaussianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_useGaussianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox_useGaussianActionPerformed
+
+    private void jCheckBox_useThresholdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_useThresholdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox_useThresholdActionPerformed
+
+    private void jCheckBox_useAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_useAnalyzeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox_useAnalyzeActionPerformed
+
+    private void jCheckBox_useOpeningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_useOpeningActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox_useOpeningActionPerformed
+
+    private void jCheckBox_useClosingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_useClosingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox_useClosingActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox_useAnalyze;
+    private javax.swing.JCheckBox jCheckBox_useClosing;
+    private javax.swing.JCheckBox jCheckBox_useGaussian;
+    private javax.swing.JCheckBox jCheckBox_useOpening;
+    private javax.swing.JCheckBox jCheckBox_useThreshold;
     private javax.swing.JComboBox<String> jComboBox_ThreMethod;
     private javax.swing.JLabel jLabel_Radius;
     private javax.swing.JLabel jLabel_ThreMethod;
+    private javax.swing.JLabel jLabel_ThreMethod1;
+    private javax.swing.JLabel jLabel_ThreMethod2;
+    private javax.swing.JLabel jLabel_ThreMethod3;
+    private javax.swing.JLabel jLabel_ThreMethod4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinner_Analyze_maxCir;
+    private javax.swing.JSpinner jSpinner_Analyze_maxSize;
+    private javax.swing.JSpinner jSpinner_Analyze_minCir;
+    private javax.swing.JSpinner jSpinner_Analyze_minSize;
     private javax.swing.JSpinner jSpinner_Radius;
     // End of variables declaration//GEN-END:variables
 
@@ -139,12 +302,39 @@ public class GaussianBlurConfigurator extends MMFrame implements ProcessorConfig
     public PropertyMap getSettings() {
        // Save preferences now.       
      studio_.profile().getSettings(GaussianBlurConfigurator.class).
-                putDouble(GaussianBlurPlugin.PROCESSOR_RadiusKey, GaussianBlurPlugin.PROCESSOR_Radius);
+             putDouble(GaussianBlurPlugin.PROCESSOR_RadiusKey, GaussianBlurPlugin.PROCESSOR_Radius);
      studio_.profile().getSettings(GaussianBlurConfigurator.class).
-                putInteger(GaussianBlurPlugin.PROCESSOR_AutoTresholdKey, GaussianBlurPlugin.PROCESSOR_AutoThreshold);
+             putInteger(GaussianBlurPlugin.PROCESSOR_AutoTresholdKey, GaussianBlurPlugin.PROCESSOR_AutoThreshold);   
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MinSizeKey, (double)GaussianBlurPlugin.PROCESSOR_Analyze_MinSize);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MaxSizeKey, (double)GaussianBlurPlugin.PROCESSOR_Analyze_MaxSize);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MinCirKey, GaussianBlurPlugin.PROCESSOR_Analyze_MinCir);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MaxCirKey, GaussianBlurPlugin.PROCESSOR_Analyze_MaxCir);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putBoolean(GaussianBlurPlugin.PROCESSOR_useGaussianBlurKey, GaussianBlurPlugin.PROCESSOR_useGaussianBlur);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putBoolean(GaussianBlurPlugin.PROCESSOR_useThresKey, GaussianBlurPlugin.PROCESSOR_useThres);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putBoolean(GaussianBlurPlugin.PROCESSOR_useAnalyzeKey, GaussianBlurPlugin.PROCESSOR_useAnalyze);
+      studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putBoolean(GaussianBlurPlugin.PROCESSOR_useOpeningKey, GaussianBlurPlugin.PROCESSOR_useOpening);
+     studio_.profile().getSettings(GaussianBlurConfigurator.class).
+             putBoolean(GaussianBlurPlugin.PROCESSOR_useClosingKey, GaussianBlurPlugin.PROCESSOR_useClosing);
       PropertyMap.Builder builder = PropertyMaps.builder();
       builder.putDouble(GaussianBlurPlugin.PROCESSOR_RadiusKey, (double) jSpinner_Radius.getValue());      
       builder.putInteger(GaussianBlurPlugin.PROCESSOR_AutoTresholdKey, jComboBox_ThreMethod.getSelectedIndex());
+      builder.putLong(GaussianBlurPlugin.PROCESSOR_Analyze_MinSizeKey, (long)jSpinner_Analyze_minSize.getValue());
+      builder.putLong(GaussianBlurPlugin.PROCESSOR_Analyze_MaxSizeKey, (long)jSpinner_Analyze_maxSize.getValue());
+      builder.putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MinCirKey, (double)jSpinner_Analyze_minCir.getValue());
+      builder.putDouble(GaussianBlurPlugin.PROCESSOR_Analyze_MaxCirKey, (double)jSpinner_Analyze_maxCir.getValue());
+      builder.putBoolean(GaussianBlurPlugin.PROCESSOR_useGaussianBlurKey, jCheckBox_useGaussian.isSelected());
+      builder.putBoolean(GaussianBlurPlugin.PROCESSOR_useThresKey, jCheckBox_useThreshold.isSelected());
+      builder.putBoolean(GaussianBlurPlugin.PROCESSOR_useAnalyzeKey, jCheckBox_useAnalyze.isSelected());
+      builder.putBoolean(GaussianBlurPlugin.PROCESSOR_useOpeningKey, jCheckBox_useOpening.isSelected());
+      builder.putBoolean(GaussianBlurPlugin.PROCESSOR_useClosingKey, jCheckBox_useClosing.isSelected());
       return builder.build();
     }
 }
